@@ -216,3 +216,19 @@ run.sh
 start_multi_eval.sh
 trash/
 eval.sh
+
+# Local environments, credentials, caches, and generated model/data binaries.
+.env.*
+!.env.example
+.uv-cache/
+.uv-python/
+.download-parts/
+.hf-cache/
+*.safetensors
+*.distcp
+*.pt
+*.pth
+*.ckpt
+*.parquet
+*.mp4
+# Keep intentionally named *.placeholder files and YAML/JSON examples.

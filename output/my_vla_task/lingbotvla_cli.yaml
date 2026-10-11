@@ -1,0 +1,139 @@
+# Reconstructed from configs/vla/my_vla_task.yaml and repository argument defaults.
+# Assumes the supplied dataset, normalization statistics and weights are real.
+# This is not a captured historical training run; runtime-derived values are not invented.
+# Launch deployment from D:/vla/lingbot-vla and use robot name myrobot.
+# Set QWEN25_PATH=D:/vla/models/Qwen2.5-VL-3B-Instruct before inference.
+model:
+  config_path: D:/vla/models/lingbot-vla-4b
+  model_path: D:/vla/models/lingbot-vla-4b
+  tokenizer_path: D:/vla/models/Qwen2.5-VL-3B-Instruct
+  vlm_repo_id: null
+  post_training: true
+  vocab_size: 0
+  adanorm_time: true
+  encoders: {}
+  decoders: {}
+  attn_implementation: flash_attention_2
+  basic_modules: []
+  force_use_huggingface: false
+  use_lm_head: false
+  split_gate_liner: false
+  nosplit_gate_liner: false
+  separate_time_proj: false
+  final_norm_adanorm: false
+  moge_path: null
+  morgbd_path: null
+data:
+  train_size: 10000000
+  data_type: conversation
+  dataloader_type: native
+  datasets_type: vla
+  data_name: myrobot
+  text_keys: messages
+  chat_template: default
+  max_seq_len: 2048
+  num_workers: 8
+  prefetch_factor: 4
+  drop_last: true
+  pin_memory: true
+  robot_config_root: D:/vla/lingbot-vla/configs/robot_configs
+  joints:
+  - arm.position: 14
+  - effector.position: 2
+  cameras:
+  - camera_top
+  - camera_wrist_left
+  - camera_wrist_right
+  norm_type: meanstd
+  img_size: 224
+  norm_stats_file: D:/vla/lingbot-vla/assets/norm_stats/myrobot.json
+  train_path: D:/vla/datasets/biso102_pick_place
+train:
+  lr: 2.0e-05
+  lr_min: 1.0e-07
+  lr_start: 0.0
+  weight_decay: 0
+  optimizer: adamw
+  max_grad_norm: 1.0
+  micro_batch_size: 4
+  global_batch_size: null
+  gradient_accumulation_steps: 4
+  num_train_epochs: null
+  rmpad: false
+  rmpad_with_pos_ids: false
+  dyn_bsz: true
+  dyn_bsz_margin: 0
+  dyn_bsz_buffer_size: 200
+  bsz_warmup_ratio: 0
+  bsz_warmup_init_mbtoken: 200
+  lr_warmup_ratio: 0
+  lr_decay_style: constant
+  lr_decay_ratio: 1.0
+  enable_mixed_precision: true
+  enable_fp32: true
+  enable_resume: true
+  enable_gradient_checkpointing: true
+  enable_reentrant: false
+  enable_full_shard: false
+  enable_forward_prefetch: true
+  enable_fsdp_offload: false
+  enable_activation_offload: false
+  activation_gpu_limit: 0.0
+  init_device: cuda
+  enable_full_determinism: false
+  empty_cache_steps: 500
+  data_parallel_mode: fsdp2
+  use_compile: false
+  module_fsdp_enable: true
+  data_parallel_replicate_size: -1
+  data_parallel_shard_size: -1
+  tensor_parallel_size: 1
+  expert_parallel_size: 1
+  pipeline_parallel_size: 1
+  ulysses_parallel_size: 1
+  context_parallel_size: 1
+  ckpt_manager: dcp
+  load_checkpoint_path: null
+  save_steps: 300
+  save_epochs: 0
+  save_hf_weights: true
+  seed: 42
+  use_wandb: false
+  wandb_project: LingBotVLA
+  wandb_name: null
+  enable_profiling: false
+  profile_start_step: 1
+  profile_end_step: 2
+  profile_trace_dir: ./trace
+  profile_record_shapes: true
+  profile_profile_memory: true
+  profile_with_stack: true
+  max_steps: 10000
+  freeze_vit: false
+  vit_lr: 1.0e-06
+  freeze_vision_encoder: false
+  tokenizer_max_length: 72
+  enable_expert_vision: false
+  expert_vision_type: null
+  expert_vision_path: null
+  action_dim: null
+  max_action_dim: 75
+  max_state_dim: 75
+  chunk_size: 50
+  vlm_causal: false
+  loss_type: fm
+  align_params: {}
+  decayed_max_grad_norm: 1.0
+  stable_train_steps: 100000
+  resume_dataloader_state: true
+  norm_qkv: false
+  train_expert_only: false
+  train_state_proj: true
+  adapt_to_pi_aloha: false
+  use_delta_joint_actions_aloha: false
+  use_cache: true
+  resize_imgs_with_padding:
+  - 224
+  - 224
+  num_steps: 10
+  output_dir: D:/vla/lingbot-vla/output/my_vla_task

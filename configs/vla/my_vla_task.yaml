@@ -1,0 +1,49 @@
+# 根据教程创建，模型路径已适配本机；仅准备配置，未启动训练。
+# 保留教程的 FSDP2/DCP 训练设置，不代表已适配 Windows 原生训练。
+model:
+  model_path: D:/vla/models/lingbot-vla-4b
+  tokenizer_path: D:/vla/models/Qwen2.5-VL-3B-Instruct
+
+data:
+  datasets_type: vla
+  data_name: myrobot # 对应 configs/robot_configs/myrobot.yaml
+  robot_config_root: D:/vla/lingbot-vla/configs/robot_configs
+  # TODO：此目录仅有占位模板，训练前须替换为真实 LeRobot v3.0 数据集。
+  train_path: D:/vla/datasets/biso102_pick_place
+  joints:
+    # 保留教程的最大维度 14；当前切片得到 12 维关节，代码会补齐并生成掩码。
+    - arm.position: 14
+    - effector.position: 2
+  cameras:
+    - camera_top
+    - camera_wrist_left
+    - camera_wrist_right
+  num_workers: 8
+  norm_type: meanstd
+  # TODO：当前 JSON 仅有空统计数组，须使用实际数据集及 myrobot 配置重新生成。
+  norm_stats_file: D:/vla/lingbot-vla/assets/norm_stats/myrobot.json
+
+train:
+  output_dir: D:/vla/lingbot-vla/output/my_vla_task
+  data_parallel_mode: fsdp2
+  enable_full_shard: false
+  module_fsdp_enable: true
+  use_compile: false
+  rmpad: false
+  rmpad_with_pos_ids: false
+  ulysses_parallel_size: 1
+  freeze_vision_encoder: false
+  tokenizer_max_length: 72
+  max_action_dim: 75
+  max_state_dim: 75
+  lr: 2.0e-5
+  lr_decay_style: constant
+  micro_batch_size: 4
+  gradient_accumulation_steps: 4 # 全局批量 = 4 * 4 * 数据并行副本数
+  max_steps: 10000
+  ckpt_manager: dcp
+  save_steps: 300
+  save_epochs: 0 # 仅按步数保存
+  enable_fp32: true
+  enable_resume: true
+  train_expert_only: false

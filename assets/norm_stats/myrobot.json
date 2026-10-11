@@ -1,0 +1,31 @@
+{
+  "_placeholder": true,
+  "_note": "空数组仅占位，不能用于归一化。请用真实数据运行 scripts/compute_norm.py 重新生成。",
+  "norm_stats": {
+    "observation.state.arm.position": {
+      "mean": [],
+      "std": [],
+      "q01": [],
+      "q99": []
+    },
+    "observation.state.effector.position": {
+      "mean": [],
+      "std": [],
+      "q01": [],
+      "q99": []
+    },
+    "action.arm.position": {
+      "mean": [],
+      "std": [],
+      "q01": [],
+      "q99": []
+    },
+    "action.effector.position": {
+      "mean": [],
+      "std": [],
+      "q01": [],
+      "q99": []
+    }
+  },
+  "count": 0
+}
